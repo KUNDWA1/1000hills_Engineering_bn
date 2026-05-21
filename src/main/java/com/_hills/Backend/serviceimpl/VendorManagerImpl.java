@@ -25,15 +25,22 @@ public class VendorManagerImpl implements VendorManager {
     private final ProductRepository productRepository;
     private final com._hills.Backend.repository.OrderRepository orderRepository;
     private final DeliveryRepository deliveryRepository;
+    private final AdminRepository adminRepository;
+    private final QuotationRepository quotationRepository;
 
     public VendorManagerImpl(VendorRepository vendorRepository,
                              ProductRepository productRepository,
                              com._hills.Backend.repository.OrderRepository orderRepository,
-                             DeliveryRepository deliveryRepository, ProductService productService) {
+                             DeliveryRepository deliveryRepository,
+                             ProductService productService,
+                             AdminRepository adminRepository,
+                             QuotationRepository quotationRepository) {
         this.vendorRepository = vendorRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.deliveryRepository = deliveryRepository;
+        this.adminRepository = adminRepository;
+        this.quotationRepository = quotationRepository;
     }
 
     @Override
@@ -117,5 +124,22 @@ public class VendorManagerImpl implements VendorManager {
     @Transactional
     public Order assignAdminToQuotation(Long quotationId, Long vendorId, Long adminId) {
         return null;
+    }
+
+    @Override
+    @Transactional
+    public Quotation assignVendorToQuotation(Long quotationId, Long vendorId, Long adminId) {
+        Quotation quotation = quotationRepository.findById(quotationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Quotation not found with id: " + quotationId));
+        Vendor vendor = vendorRepository.findById(vendorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Vendor not found with id: " + vendorId));
+        Admin admin = adminRepository.findById(adminId)
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found with id: " + adminId));
+
+        quotation.setAssignedVendor(vendor);
+        quotation.setAssignedByAdmin(admin);
+        quotation.setStatus(AppConstants.STATUS_ASSIGNED);
+        quotationRepository.save(quotation);
+        return quotation;
     }
 }

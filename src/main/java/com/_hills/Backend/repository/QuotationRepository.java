@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface QuotationRepository extends JpaRepository<Quotation, Long> {
     Page<Quotation> findByAssignedVendorId(Long vendorId, Pageable pageable);
     Page<Quotation> findByCustomerId(Long customerId, Pageable pageable);
+    long countByStatus(String status);
 }

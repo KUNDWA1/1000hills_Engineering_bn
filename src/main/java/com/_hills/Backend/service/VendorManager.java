@@ -18,6 +18,8 @@ public interface VendorManager {
 
     Order assignAdminToQuotation(Long quotationId, Long vendorId, Long adminId);
 
+    Quotation assignVendorToQuotation(Long quotationId, Long vendorId, Long adminId);
+
     List<Vendor> getBestVendorsForProduct(Long productId);
 
     Delivery createDelivery(Long orderId, String deliveryAddress, String courierName);
