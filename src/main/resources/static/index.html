@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1000Hills Engineering | Marketplace Overview</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand">1000Hills Engineering</div>
+      <nav class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#roles">Users</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#featured">Featured Products</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="cta-button" href="#featured">Browse Products</a>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <span class="eyebrow">Engineering Marketplace</span>
+          <h1>Buy construction and engineering supplies with trusted vendors, managed centrally by admin.</h1>
+          <p>1000Hills Engineering connects customers to verified vendors while the platform administrator ensures quality, fair procurement, and secure delivery.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#roles">Explore Roles</a>
+            <a class="button button-secondary" href="#workflow">How It Works</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-label">Platform at a glance</div>
+            <ul>
+              <li>Browse products and request quotations</li>
+              <li>Admin assigns vendors based on price, reliability, and availability</li>
+              <li>Vendors manage stock, orders, and delivery status</li>
+              <li>Customers track orders and receive notifications</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="role-panels" id="roles">
+        <div class="section-intro">
+          <p class="section-label">User roles</p>
+          <h2>One system, three powerful user experiences</h2>
+          <p>The marketplace supports Customer, Vendor, and Admin dashboards, each optimized for the right workflow.</p>
+        </div>
+        <div class="cards-grid">
+          <article class="panel-card">
+            <div class="panel-title">Customer / User</div>
+            <p>Browse products, request quotations, place orders, make payments, and track delivery, without choosing vendors directly.</p>
+            <ul>
+              <li>Create an account and login</li>
+              <li>Browse and filter products</li>
+              <li>Add to cart and pay securely</li>
+              <li>Track order status and invoices</li>
+            </ul>
+          </article>
+          <article class="panel-card">
+            <div class="panel-title">Vendor / Seller</div>
+            <p>Verified vendors add and manage products, set availability, and receive assigned orders from the admin.</p>
+            <ul>
+              <li>Complete profile and upload verification</li>
+              <li>Publish products with stock and pricing</li>
+              <li>Update availability status</li>
+              <li>Track assigned orders and deliveries</li>
+            </ul>
+          </article>
+          <article class="panel-card panel-admin">
+            <div class="panel-title">Admin</div>
+            <p>The admin manages vendors, approves registrations, assigns orders, monitors payments, and reviews analytics.</p>
+            <ul>
+              <li>Review vendor documents and approve access</li>
+              <li>Assign best vendor by price, reliability, stock and availability</li>
+              <li>Monitor payments and invoices</li>
+              <li>Track performance and generate reports</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="workflow" id="workflow">
+        <div class="section-head">
+          <p class="section-label">System workflow</p>
+          <h2>How orders move through 1000Hills Engineering</h2>
+        </div>
+        <div class="workflow-steps">
+          <div class="step-card">Customer places an order or quotation request</div>
+          <div class="step-card">Admin receives request</div>
+          <div class="step-card">System shows matching vendors</div>
+          <div class="step-card">Admin compares price, stock, reliability, availability</div>
+          <div class="step-card">Admin selects the best vendor</div>
+          <div class="step-card">Vendor receives the assigned order</div>
+          <div class="step-card">Vendor processes the order and updates delivery</div>
+          <div class="step-card">Customer receives product</div>
+        </div>
+      </section>
+
+      <section class="featured-products" id="featured">
+        <div class="section-head">
+          <p class="section-label">Featured products</p>
+          <h2>Popular engineering materials and tools</h2>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <div class="product-loading">Loading featured products…</div>
+        </div>
+      </section>
+
+      <section class="product-insight">
+        <div class="product-insight-copy">
+          <p class="section-label">Marketplace capabilities</p>
+          <h2>Designed for construction procurement with trust and control.</h2>
+          <p>The platform supports product categories such as construction tools, electrical materials, plumbing supplies, and safety equipment with secure role-based access and centralized order assignment.</p>
+        </div>
+        <div class="product-insight-list">
+          <article>
+            <strong>Order tracking</strong>
+            <p>Pending, approved, assigned, processing, out for delivery, delivered, or cancelled — every stage is tracked.</p>
+          </article>
+          <article>
+            <strong>Vendor verification</strong>
+            <p>Only verified vendors can access the full seller dashboard after admin approval.</p>
+          </article>
+          <article>
+            <strong>Secure management</strong>
+            <p>Role-based authentication, encrypted credentials, and admin controls keep the marketplace safe.</p>
+          </article>
+          <article>
+            <strong>Notifications</strong>
+            <p>Users are notified when vendor requests are approved, orders are assigned, payments confirm, or delivery updates change.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div>
+        <strong>1000Hills Engineering</strong>
+        <p>Building trusted procurement for construction and engineering materials.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#overview">Overview</a>
+        <a href="#roles">Roles</a>
+        <a href="#workflow">Workflow</a>
+      </div>
+    </footer>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
