@@ -27,7 +27,7 @@ public class ProductSpecification {
     // ==========================================
 
     // No-Args Constructor (Required by JPA)
-    public void ProductImage() {
+    public ProductSpecification() {
     }
 
     // All-Args Constructor

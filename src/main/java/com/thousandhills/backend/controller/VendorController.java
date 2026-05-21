@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.thousandhills.backend.dto.ProductRequest;
 import com.thousandhills.backend.dto.VendorAvailabilityRequest;
 import com.thousandhills.backend.dto.VendorDocumentRequest;
 import com.thousandhills.backend.dto.VendorRegistrationRequest;
@@ -86,48 +87,51 @@ public class VendorController {
 
     @PutMapping("/products/{productId}")
     public ResponseEntity<?> updateProduct(Principal principal, @PathVariable Long productId, @RequestBody ProductRequest request) {
-        return vendorService.findByUserUsername(principal.getName())
-                .filter(vendor -> vendor.getStatus() == com.thousandhills.backend.model.VendorStatus.APPROVED)
-                .flatMap(vendor -> productService.getProductById(productId)
-                        .filter(product -> product.getVendor().getId().equals(vendor.getId()))
-                        .map(product -> {
-                            product.setSku(request.getSku());
-                            product.setTitle(request.getTitle());
-                            product.setPrice(request.getPrice());
-                            product.setCurrency(request.getCurrency());
-                            product.setCategory(request.getCategory());
-                            product.setImageUrl(request.getImageUrl());
-                            product.setStockQuantity(request.getStockQuantity());
-                            product.setIsFeatured(request.getIsFeatured() != null && request.getIsFeatured());
-                            product.setDescription(request.getDescription());
-                            // Keep approval status as false when updated - needs re-approval
-                            product.setIsApproved(false);
-                            return ResponseEntity.ok(productService.createProduct(product));
-                        }))
-                .orElseGet(() -> ResponseEntity.badRequest().build());
+        java.util.Optional<VendorProfile> vendorOpt = vendorService.findByUserUsername(principal.getName())
+                .filter(vendor -> vendor.getStatus() == com.thousandhills.backend.model.VendorStatus.APPROVED);
+        if (vendorOpt.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        java.util.Optional<Product> productOpt = productService.getProductById(productId)
+                .filter(product -> product.getVendor().getId().equals(vendorOpt.get().getId()));
+        if (productOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Product product = productOpt.get();
+        product.setSku(request.getSku());
+        product.setTitle(request.getTitle());
+        product.setPrice(request.getPrice());
+        product.setCurrency(request.getCurrency());
+        product.setCategory(request.getCategory());
+        product.setImageUrl(request.getImageUrl());
+        product.setStockQuantity(request.getStockQuantity());
+        product.setIsFeatured(request.getIsFeatured() != null && request.getIsFeatured());
+        product.setDescription(request.getDescription());
+        product.setIsApproved(false);
+        return ResponseEntity.ok(productService.createProduct(product));
     }
 
     @PostMapping("/products")
     public ResponseEntity<?> createVendorProduct(Principal principal, @RequestBody ProductRequest request) {
-        return vendorService.findByUserUsername(principal.getName())
-                .filter(vendor -> vendor.getStatus() == com.thousandhills.backend.model.VendorStatus.APPROVED)
-                .map(vendor -> {
-                    Product product = new Product();
-                    product.setSku(request.getSku());
-                    product.setTitle(request.getTitle());
-                    product.setPrice(request.getPrice());
-                    product.setCurrency(request.getCurrency());
-                    product.setCategory(request.getCategory());
-                    product.setImageUrl(request.getImageUrl());
-                    product.setStockQuantity(request.getStockQuantity());
-                    product.setIsFeatured(request.getIsFeatured() != null && request.getIsFeatured());
-                    product.setDescription(request.getDescription());
-                    product.setVendor(vendor);
-                    // New products need approval
-                    product.setIsApproved(false);
-                    return ResponseEntity.ok(productService.createProduct(product));
-                })
-                .orElseGet(() -> ResponseEntity.badRequest().body("Vendor must be approved before posting products."));
+        java.util.Optional<VendorProfile> vendorOpt = vendorService.findByUserUsername(principal.getName())
+                .filter(vendor -> vendor.getStatus() == com.thousandhills.backend.model.VendorStatus.APPROVED);
+        if (vendorOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Vendor must be approved before posting products.");
+        }
+        VendorProfile vendor = vendorOpt.get();
+        Product product = new Product();
+        product.setSku(request.getSku());
+        product.setTitle(request.getTitle());
+        product.setPrice(request.getPrice());
+        product.setCurrency(request.getCurrency());
+        product.setCategory(request.getCategory());
+        product.setImageUrl(request.getImageUrl());
+        product.setStockQuantity(request.getStockQuantity());
+        product.setIsFeatured(request.getIsFeatured() != null && request.getIsFeatured());
+        product.setDescription(request.getDescription());
+        product.setVendor(vendor);
+        product.setIsApproved(false);
+        return ResponseEntity.ok(productService.createProduct(product));
     }
 
     @PostMapping("/register")

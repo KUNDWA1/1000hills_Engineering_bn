@@ -1,6 +1,7 @@
 package com.thousandhills.backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByIdAndIsApprovedTrue(Long id);
 
     List<Product> findByCategoryAndIdNotAndIsApprovedTrue(String category, Long id);
+
+    // 2-arg convenience for ProductService:
+    default List<Product> findByCategoryAndIdNot(String category, Long id) {
+        return findByCategoryAndIdNotAndIsApprovedTrue(category, id);
+    }
 
     List<Product> findByIsApprovedFalse();
 

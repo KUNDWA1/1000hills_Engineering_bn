@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.thousandhills.backend.dto.CustomerProfileRequest;
 import com.thousandhills.backend.dto.OrderRequest;
 import com.thousandhills.backend.dto.QuotationRequestCreate;
 import com.thousandhills.backend.model.AppUser;
@@ -63,22 +64,22 @@ public class CustomerController {
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(Principal principal) {
         return resolveCustomer(principal)
-                .map(ResponseEntity::ok)
+                .<ResponseEntity<?>>map(customer -> ResponseEntity.ok(customer))
                 .orElse(ResponseEntity.badRequest().body("Customer profile not found."));
     }
 
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(Principal principal, @RequestBody CustomerProfileRequest request) {
-        return resolveCustomer(principal)
-                .map(customer -> {
-                    customer.setFullName(request.getFullName());
-                    customer.setPhoneNumber(request.getPhoneNumber());
-                    customer.setCompanyName(request.getCompanyName());
-                    customer.setAddress(request.getAddress());
-                    CustomerProfile updated = customerProfileRepository.save(customer);
-                    return ResponseEntity.ok(updated);
-                })
-                .orElse(ResponseEntity.badRequest().body("Customer profile not found."));
+        java.util.Optional<CustomerProfile> profile = resolveCustomer(principal);
+        if (profile.isEmpty()) {
+            return ResponseEntity.badRequest().body("Customer profile not found.");
+        }
+        CustomerProfile customer = profile.get();
+        customer.setFullName(request.getFullName());
+        customer.setPhoneNumber(request.getPhoneNumber());
+        customer.setCompanyName(request.getCompanyName());
+        customer.setAddress(request.getAddress());
+        return ResponseEntity.ok(customerProfileRepository.save(customer));
     }
 
     private java.util.Optional<CustomerProfile> resolveCustomer(Principal principal) {

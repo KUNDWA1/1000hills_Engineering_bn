@@ -6,12 +6,8 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.14</version>
-<<<<<<< HEAD
-		<relativePath/> </parent>
-=======
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
->>>>>>> b148b473e056c3857ec94190d9f681898c54777c
 	<groupId>com.thousandhills</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -46,35 +42,27 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-<<<<<<< HEAD
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-=======
->>>>>>> b148b473e056c3857ec94190d9f681898c54777c
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
-=======
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
->>>>>>> b148b473e056c3857ec94190d9f681898c54777c
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -84,6 +72,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -91,8 +84,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<<<<<<< HEAD
-=======
 				<configuration>
 					<excludes>
 						<exclude>
@@ -101,16 +92,10 @@
 						</exclude>
 					</excludes>
 				</configuration>
->>>>>>> b148b473e056c3857ec94190d9f681898c54777c
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-<<<<<<< HEAD
-				<configuration>
-					<release>17</release>
-				</configuration>
-=======
 				<executions>
 					<execution>
 						<id>default-compile</id>
@@ -143,13 +128,8 @@
 						</configuration>
 					</execution>
 				</executions>
->>>>>>> b148b473e056c3857ec94190d9f681898c54777c
 			</plugin>
 		</plugins>
 	</build>
 
-<<<<<<< HEAD
 </project>
-=======
-</project>
->>>>>>> b148b473e056c3857ec94190d9f681898c54777c
